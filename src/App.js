@@ -4,17 +4,41 @@ import Button from "./components/Button";
 import Display from "./components/Display";
 import { Component } from "react";
 
+const initialState = {
+  displayValue: "0",
+  clearDisplay: false,
+  operation: null,
+  values: [0, 0],
+  current: 0,
+};
+
 export default class App extends Component {
   state = {
-    displayValue: "0",
+    ...initialState,
   };
 
   addDigit = n => {
-    this.setState({ displayValue: n });
+    if (n === "." && this.state.displayValue.includes(".")) {
+      return; // Verifica se caso já tiver o '.' não será incluído outro.
+    }
+
+    const clearDisplay =
+      this.state.displayValue === "0" || this.state.clearDisplays;
+    const currentValue = clearDisplay ? "" : this.state.displayValue;
+
+    const displayValue = currentValue + n;
+    this.setState({ displayValue, clearDisplay: false });
+
+    if (n !== ".") {
+      const newValue = parseFloat(displayValue);
+      const values = [...this.state.values];
+      values[this.state.current] = newValue;
+      this.setState({ values });
+    }
   };
 
   clearMemory = () => {
-    this.setState({ displayValue: "0" });
+    this.setState({ ...initialState });
   };
 
   setOperation = operation => {};
@@ -50,7 +74,7 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0fe",
+    backgroundColor: "#a8a8a0",
   },
   buttons: {
     flexDirection: "row",
