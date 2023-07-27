@@ -18,12 +18,12 @@ export default class App extends Component {
   };
 
   addDigit = n => {
+    const clearDisplay =
+      this.state.displayValue === "0" || this.state.clearDisplay;
+
     if (n === "." && this.state.displayValue.includes(".")) {
       return; // Verifica se caso já tiver o '.' não será incluído outro.
     }
-
-    const clearDisplay =
-      this.state.displayValue === "0" || this.state.clearDisplay;
     const currentValue = clearDisplay ? "" : this.state.displayValue;
 
     const displayValue = currentValue + n;
