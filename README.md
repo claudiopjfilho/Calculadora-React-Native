@@ -1,4 +1,4 @@
-Calculadora React Native
+##Calculadora React Native
 Este repositório contém uma aplicação de calculadora simples desenvolvida com React Native. A calculadora permite que os usuários realizem operações básicas de adição, subtração, multiplicação e divisão.
 
 Instalação
